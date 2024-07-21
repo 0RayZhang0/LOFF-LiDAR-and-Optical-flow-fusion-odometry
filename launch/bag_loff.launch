@@ -1,0 +1,18 @@
+<launch>
+  <arg name="rviz" default="true"/>
+
+  <node name="loff" pkg="lidar_opticalflow_fusion" type="loff_node" output="screen" clear_params="true">
+    <rosparam file="$(find lidar_opticalflow_fusion)/cfg/loff.yaml" command="load"/>
+    <!-- Subscriptions -->
+    <!-- <remap from="/path_plan/recover_size" to="/idonnotknow"/> ?? -->
+  </node>
+
+  <!-- RViz -->
+  <node pkg="rviz" type="rviz" name="dlio_rviz" args="-d $(find lidar_opticalflow_fusion)/launch/loff.rviz" if="$(arg rviz)"/>
+
+  <!-- fate_flag -->
+  <!-- <node name="fate_pose" pkg="lidar_opticalflow_fusion" type="fate_pose_correct_flag" output="screen" >
+    <rosparam file="$(find lidar_opticalflow_fusion)/cfg/loff.yaml" command="load"/>
+  </node> -->
+
+</launch>

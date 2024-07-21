@@ -1,0 +1,23 @@
+###########################################################
+#                                                         #
+#                                                         #
+#                                                         #
+#                                                         #
+# Authors: Ray.zhang                                      #
+# Contact:       @tongji.edu.cn                           #
+#                                                         #
+###########################################################
+
+loff:
+
+  num_lidarReconnectTest: 100
+  num_lidarFrontPointsThresh: 100
+
+
+fate:
+  cout: false
+  count_rc: false        #Decide who is going to control the publisher of "pose_correct_flag". True for count, false for rc.
+  # Whether the LiDAR is reliable (on/off) in the nth callback
+  true_false: [   1   , 250 ,
+                 480  , 840 ,  
+                1160  , 999 ]
