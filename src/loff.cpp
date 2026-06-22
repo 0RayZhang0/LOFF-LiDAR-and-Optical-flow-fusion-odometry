@@ -33,15 +33,15 @@ void loff::sayhello(){
 
 loff::loff(ros::NodeHandle node_handle) : nh(node_handle){
 
-    this->opticalFlow_sub = this->nh.subscribe("/usb_opticalflow",1,&loff::callback_opticalFlow,this,ros::TransportHints().tcpNoDelay());
+    this->opticalFlow_sub = this->nh.subscribe("/opticalflow_topic",1,&loff::callback_opticalFlow,this,ros::TransportHints().tcpNoDelay());
+    this->lidarPose_sub=this->nh.subscribe("/Lidar_SLAM_topic",1,&loff::callback_lidar,this,ros::TransportHints().tcpNoDelay());
+    this->correct_flag_sub = this->nh.subscribe("/pose_correct_flag",1,&loff::callback_correct_flag,this,ros::TransportHints().tcpNoDelay());
+    this->pointNum_sub = this->nh.subscribe("/path_plan/recover_size",1,&loff::callback_pointNum,this,ros::TransportHints().tcpNoDelay());
 
     this->mavros_state_sub = this->nh.subscribe("/mavros/state",1,&loff::callback_mavros_state,this,ros::TransportHints().tcpNoDelay());
 
-    this->lidarPose_sub=this->nh.subscribe("/robot/dlio/odom_node/pose",1,&loff::callback_lidar,this,ros::TransportHints().tcpNoDelay());
-    // this->lidarPose_sub=this->nh.subscribe("/mavros/vision_pose/pose",1,&loff::callback_lidar,this,ros::TransportHints().tcpNoDelay());
-    this->correct_flag_sub = this->nh.subscribe("/robot/dlio_odom/pose_correct",1,&loff::callback_correct_flag,this,ros::TransportHints().tcpNoDelay());
     this->rc_correct_flag_sub = this->nh.subscribe("/loff/rc_pose_correct",1,&loff::callback_rc_correct_flag,this,ros::TransportHints().tcpNoDelay());
-    this->pointNum_sub = this->nh.subscribe("/path_plan/recover_size",1,&loff::callback_pointNum,this,ros::TransportHints().tcpNoDelay());
+    
     
     
     this->visionPose_pub = this->nh.advertise<geometry_msgs::PoseStamped>("/mavros/vision_pose/pose",1,true);
